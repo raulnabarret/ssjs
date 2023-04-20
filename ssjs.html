@@ -7,6 +7,8 @@
       Platform.Load("core","1.1.2");
 
         var quarterlyNewsletterList = List.Init("Quarterly Newsletter");
+                Variable.SetValue("quarterlyNewsletterList", quarterlyNewsletterList);
+
         var quarterlyNewsletterListStatus = quarterlyNewsletterList.Subscribers.Update("raulnabarret@gmail.com","Active");
         Variable.SetValue("quarterlyNewsletterListStatus", quarterlyNewsletterListStatus);
 
@@ -76,6 +78,9 @@
       <br/> <br/>
 
       <input type="submit" value="Update">
+      quarterlyNewsletterList
+      %%=v(@quarterlyNewsletterList)=%%
+      <br/>
       %%=v(@quarterlyNewsletterListStatus)=%%
       
 
