@@ -6,6 +6,9 @@
     <script runat="server" language="JavaScript">
       Platform.Load("core","1.1.2");
 
+        var quarterlyNewsletterList = List.Init("Quarterly Newsletter");
+        var status = quarterlyNewsletterList.Subscribers.Upsert("raulnabarret@gmail.com",{Status:"Active"});
+
       var subscriptionStatus = Subscriber.Retrieve({
         Property: "SubscriberKey",
         SimpleOperator: "equals",
@@ -32,17 +35,9 @@
           }
         };
 
-        if(gender != "") {
-          subscriberData.Attributes.Gender = gender;
-        }
-
         if(subscribeTo) {
           subscriberData.Status = "Active";
         }
-
-
-        var quarterlyNewsletterList = List.Init("Quarterly Newsletter");
-        var status = quarterlyNewsletterList.Subscribers.Update("raulnabarret@gmail.com","Active");
 
         var subObj = Subscriber.Init(subscriberKey);
 
