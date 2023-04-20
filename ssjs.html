@@ -40,9 +40,8 @@
           subscriberData.Status = "Active";
         }
 
-
-        var quarterlyNewsletterList = List.Init("Quarterly Newsletter");
-        var status = quarterlyNewsletterList.Subscribers.Add("raulnabarret@gmail.com");
+        var quarterlyNewsletterList[0] = List.Retrieve({Property:"ID",SimpleOperator:"equals",Value:"12608"});
+        var status = quarterlyNewsletterList[0].Subscribers.Update("raulnabarret@gmail.com", "Active");
 
         var subObj = Subscriber.Init(subscriberKey);
 
