@@ -28,18 +28,19 @@
         */
 
         var cols = [
-            "Status",
-            "SubscriberKey"
+            "SubscriberKey",
+            "ListID",
+            "Status"
         ];
 
         var filter = {
-            Property: "SubscriberKey",
+            Property: "ListID",
             SimpleOperator: "equals",
-            Value: "raulnabarret@gmail.com"
+            Value: "12608"
         };
 
-        var result = api.retrieve("List", cols, filter);
-        Write("Response: " + Stringify(result));
+        var result = api.retrieve("ListSubscriber", cols, filter);
+
 
     </script>
     . 
