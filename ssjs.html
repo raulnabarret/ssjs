@@ -52,8 +52,8 @@
             RightOperand: qnFilter2
         }
 
-        var result = api.retrieve("ListSubscriber", cols, qnComplexFilter);
-        if(result.Status === 'Active') {
+        var result1 = api.retrieve("ListSubscriber", cols, qnComplexFilter);
+        if(result1.Status === 'Active') {
             Variable.SetValue("@quaterlyNewsletterIsActive",true);
         } else {
             Variable.SetValue("@quaterlyNewsletterIsActive",false);
@@ -79,8 +79,8 @@
             RightOperand: cdcAdvFilter2
         }
 
-        var result = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
-        if(result.Status === 'Active') {
+        var result2 = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
+        if(result2.Status === 'Active') {
             Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",true);
         } else {
             Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
