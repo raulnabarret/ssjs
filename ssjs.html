@@ -4,39 +4,43 @@
     ]%%
 
     <script runat="server" language="JavaScript">
-    Platform.Load("core","1");
+        Platform.Load("core","1");
 
-    var api = new Script.Util.WSProxy();
-
-    try {
-
-        var res = api.updateItem("Subscriber", {
-            SubscriberKey: "raulnabarret@gmail.com",
-            EmailAddress: "raulnabarret@gmail.com",
-            Status: "Active",
-            Lists: [
-                {
-                    ID: "12608"
-                },
-                {
-                    ID: "12630"
-                }
-            ]
-        }, 
-        {
-            SaveOptions: [
-                {
-                    PropertyName: '*',
-                    SaveAction: 'UpdateAdd'
-                }
-            ]
+        var api = new Script.Util.WSProxy();
+        var res = api.createItem("List", {
+            ListName: "My NewList",
+            Type: "Public",
+            ListClassification: "PublicationList",
+            Description: "Hello world"
         });
 
-    Write(Stringify(res));
+        /*try {
 
-    } catch(error) {
-        Write(Stringify(error));
-    }
+            var res = api.updateItem("Subscriber", {
+                SubscriberKey: "raulnabarret@gmail.com",
+                EmailAddress: "raulnabarret@gmail.com",
+                Status: "Active",
+                Lists: [
+                    {
+                        ID: "12608"
+                    },
+                    {
+                        ID: "12630"
+                    }
+                ]
+            }, 
+            {
+                SaveOptions: [
+                    {
+                        PropertyName: '*',
+                        SaveAction: 'UpdateAdd'
+                    }
+                ]
+            });
 
-    
+        Write(Stringify('res:' + res));
+
+        } catch(error) {
+            Write(Stringify('error:' + error));
+        }*/
     </script>
