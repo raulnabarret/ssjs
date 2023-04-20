@@ -8,7 +8,7 @@
 
         var api = new Script.Util.WSProxy();
 
-        var sub = {
+        /*var sub = {
             SubscriberKey: 'raulnabarret@gmail.com',
             EmailAddress: 'raulnabarret@gmail.com',
             Lists: [{
@@ -23,6 +23,19 @@
             }]
         };
 
-        var res = api.updateItem("Subscriber", sub, options);
+        var res = api.updateItem("Subscriber", sub, options);*/
+
+        var cols = [
+            "Status",
+        ];
+
+        var filter = {
+            Property: "EmailAddress",
+            SimpleOperator: "equals",
+            Value: "example@mail.com"
+        };
+
+        var result = api.retrieve("Subscriber", cols, filter);
+        Write("Response: " + Stringify(result));
 
     </script>
