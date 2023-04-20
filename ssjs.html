@@ -4,13 +4,37 @@
     ]%%
 
     <script runat="server" language="JavaScript">
-      Platform.Load("core","1.1.2");
+    Platform.Load("core","1.1.2");
 
-        var quarterlyNewsletterList = List.Init('QuarterlyNewsletter');
-        Variable.SetValue("quarterlyNewsletterList", quarterlyNewsletterList);
+    var api = new Script.Util.WSProxy();
 
-        var quarterlyNewsletterListStatus = quarterlyNewsletterList.Subscribers.Update("raulnabarret@gmail.com","Active");
-        Variable.SetValue("quarterlyNewsletterListStatus", quarterlyNewsletterListStatus);
+    try {
+
+        var res = api.updateItem("Subscriber", {
+            SubscriberKey: "raulnabarret@gmail.com",
+            EmailAddress: "raulnabarret@gmail.com",
+            Status: "Active",
+            EmailTypePreference: "HTML",
+            Lists: [
+                {
+                    ID: "12608"
+                }
+            ]
+        }, 
+        {
+            SaveOptions: [
+                {
+                    PropertyName: '*',
+                    SaveAction: 'UpdateAdd'
+                }
+            ]
+        });
+
+    Write(Stringify(res));
+
+    } catch(error) {
+        Write(Stringify(error));
+    }
 
       var subscriptionStatus = Subscriber.Retrieve({
         Property: "SubscriberKey",
