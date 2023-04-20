@@ -33,14 +33,25 @@
             "Status"
         ];
 
-        var filter = {
+        var filter1 = {
             Property: "ListID",
             SimpleOperator: "equals",
             Value: "12608"
         };
 
-        var result = api.retrieve("ListSubscriber", cols, filter);
-            Write("Response: " + Stringify(result));
+        var filter2 = {
+            Property: "EmailAddress",
+            SimpleOperator: "equals",
+            Value: "raulnabarret@gmail.com"
+        };
+        var complexFilter = {
+            LeftOperand: filter1,
+            LogicalOperator: "AND",
+            RightOperand: filter2
+        }
+
+        var result = api.retrieve("ListSubscriber", cols, complexFilter);
+        Write("Response: " + Stringify(result));
 
 
 
