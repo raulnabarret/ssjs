@@ -9,8 +9,6 @@
         var quarterlyNewsletterList = List.Retrieve({Property:"ID",SimpleOperator:"equals",Value:"12608"});
                 Variable.SetValue("quarterlyNewsletterList", quarterlyNewsletterList);
 
-        var quarterlyNewsletterListStatus = quarterlyNewsletterList.Subscribers.Update("raulnabarret@gmail.com","Active");
-        Variable.SetValue("quarterlyNewsletterListStatus", quarterlyNewsletterListStatus);
 
       var subscriptionStatus = Subscriber.Retrieve({
         Property: "SubscriberKey",
