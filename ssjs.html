@@ -8,24 +8,21 @@
 
         var api = new Script.Util.WSProxy();
 
-        var res = api.updateItem("Subscriber", {
-            SubscriberKey: "raulnabarret@gmail.com",
-            EmailAddress: "raulnabarret@gmail.com",
-            Status: "Unsubscribed",
-            Attributes: [],
-            Lists: [
-                {
-                    ID: "12651"
-                }
-            ]
-        }, 
-        {
-            SaveOptions: [
-                {
-                    PropertyName: '*',
-                    SaveAction: 'UpdateAdd'
-                }
-            ]
-        });
+    var sub = {
+        SubscriberKey: 'raulnabarret@gmail.com',
+        EmailAddress: 'raulnabarret@gmail.com',
+        Lists: [{
+            ID: '12608',
+            Status: 'Active'
+        }]
+    };
+    var options = { 
+        SaveOptions: [{
+          PropertyName: "*",
+          SaveAction: "UpdateAdd"
+        }]
+    };
+
+    var res = prox.createItem("Subscriber", sub, options);
 
     </script>
