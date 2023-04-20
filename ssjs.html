@@ -28,9 +28,7 @@
       if(subscriberKey) {
         var subscriberData = {
           "Attributes": {
-            "Preference" : preference,
-            "Connection" : connection,
-            "Send Email Newsletter" : quarterlyNewsletter
+            "Quarterly Newsletter" : quarterlyNewsletter
           }
         };
 
@@ -67,7 +65,7 @@
       <input type="hidden" name="subscriberKey" value="%%=v(@subscriberkey)=%%">
       
       <h2>Update your profile:</h2>
-      <label>* Email: </label><input type="email" required name="email" value="%%=v(@emailAddress)=%%"><br>
+      <label>* Email: </label><input type="email" name="email" value="%%=v(@emailAddress)=%%"><br>
 
             
       <h2>Update your subscriptions:</h2>
