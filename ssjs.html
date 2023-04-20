@@ -6,10 +6,10 @@
     <script runat="server" language="JavaScript">
       Platform.Load("core","1.1.2");
 
-        var quarterlyNewsletterList = List.Retrieve({Property:"ID",SimpleOperator:"equals",Value:"12608"});
-                Variable.SetValue("quarterlyNewsletterList", quarterlyNewsletterList[0]);
+        var quarterlyNewsletterList = List.Init('QuarterlyNewsletter');
+        Variable.SetValue("quarterlyNewsletterList", quarterlyNewsletterList);
 
-        var quarterlyNewsletterListStatus = quarterlyNewsletterList[0].Subscribers.Update("raulnabarret@gmail.com","Active");
+        var quarterlyNewsletterListStatus = quarterlyNewsletterList.Subscribers.Update("raulnabarret@gmail.com","Active");
         Variable.SetValue("quarterlyNewsletterListStatus", quarterlyNewsletterListStatus);
 
       var subscriptionStatus = Subscriber.Retrieve({
