@@ -27,38 +27,71 @@
         var res = api.updateItem("Subscriber", sub, options);
         */
 
+
         var cols = [
             "SubscriberKey",
             "ListID",
             "Status"
         ];
 
-        var filter1 = {
+        //Get Quaterly Newsletter
+        var qnFilter1 = {
             Property: "ListID",
             SimpleOperator: "equals",
             Value: "12608"
         };
 
-        var filter2 = {
+        var qnFilter2 = {
             Property: "SubscriberKey",
             SimpleOperator: "equals",
             Value: "raulnabarret@gmail.com"
         };
-        var complexFilter = {
-            LeftOperand: filter1,
+        var qnComplexFilter = {
+            LeftOperand: qnFilter1,
             LogicalOperator: "AND",
-            RightOperand: filter2
+            RightOperand: qnFilter2
         }
 
-        var result = api.retrieve("ListSubscriber", cols, complexFilter);
+        var result = api.retrieve("ListSubscriber", cols, qnComplexFilter);
         if(result.Status === 'Active') {
             Variable.SetValue("@quaterlyNewsletterIsActive",true);
         } else {
             Variable.SetValue("@quaterlyNewsletterIsActive",false);
         }
         Write("Response: " + Stringify(result.Results[0]));
+        //Get Quaterly Newsletter
 
+        //Get CDC Advanced HIV Disease
+        var cdcAdvFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12630"
+        };
+
+        var cdcAdvFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: "raulnabarret@gmail.com"
+        };
+        var cdcAdvComplexFilter = {
+            LeftOperand: cdcAdvFilter1,
+            LogicalOperator: "AND",
+            RightOperand: cdcAdvFilter2
+        }
+
+        var result = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
+        if(result.Status === 'Active') {
+            Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",true);
+        } else {
+            Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
+        }
+        Write("Response: " + Stringify(result.Results[0]));
+        //Get CDC Advanced HIV Disease
 
 
     </script>
+    quaterlyNewsletterIsActive:
     %%=v(@quaterlyNewsletterIsActive)=%%
+    <br/>
+    cdcAdvancedHIVDiseaseIsActive:
+    %%=v(@cdcAdvancedHIVDiseaseIsActive)=%%
