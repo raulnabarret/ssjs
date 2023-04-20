@@ -51,9 +51,14 @@
         }
 
         var result = api.retrieve("ListSubscriber", cols, complexFilter);
+        if(result.Status === 'Active') {
+            Variable.SetValue("@quaterlyNewsletterIsActive",true);
+        } else {
+            Variable.SetValue("@quaterlyNewsletterIsActive",false);
+        }
         Write("Response: " + Stringify(result.Results[0]));
 
 
 
     </script>
-    2
+    %%=v(@quaterlyNewsletterIsActive)=%%
