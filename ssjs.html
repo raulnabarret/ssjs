@@ -8,7 +8,7 @@
 
     var api = new Script.Util.WSProxy();
 
-    
+    Variable.SetValue('')
     var sub = {
         SubscriberKey: 'raulnabarret@gmail.com',
         EmailAddress: 'raulnabarret@gmail.com',
@@ -58,7 +58,7 @@
     } else {
         Variable.SetValue("@quaterlyNewsletterIsActive",false);
     }
-    Write("Response: " + Stringify(result1.Results[0]));
+    //Write("Response: " + Stringify(result1.Results[0]));
     //Get Quaterly Newsletter
 
     //Get CDC Advanced HIV Disease
@@ -85,7 +85,7 @@
     } else {
         Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
     }
-    Write("Response: " + Stringify(result2.Results[0]));
+    //Write("Response: " + Stringify(result2.Results[0]));
     //Get CDC Advanced HIV Disease
 </script>
 <style type="text/css">
@@ -231,7 +231,7 @@
         </div>
       </div>
       <div class="button-wrapper">
-        <button onclick="handleSubmitPreferences()">Save Preferences</button>
+        <button runat="server" onclick="handleSubmitPreferences()">Save Preferences</button>
       </div>
     </form>
   </div>
@@ -240,3 +240,11 @@
     <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
   </div>
 </div>  
+<script runat="server" language="JavaScript">
+    Platform.Load("core","1");
+    var api = new Script.Util.WSProxy();
+    
+    handleSubmitPreferences() {
+        Write("test");
+    }    
+</script>
