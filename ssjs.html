@@ -88,3 +88,155 @@
     Write("Response: " + Stringify(result2.Results[0]));
     //Get CDC Advanced HIV Disease
 </script>
+<style type="text/css">
+  h1, h2 {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 2em;
+  }
+
+  .subheader-wrapper {
+    margin-bottom: 0.25em;
+  }
+
+  .wrapper {
+    display: flex;
+      height: calc(100% + 16px);
+      margin: -8px;
+  }
+
+  .image-wrapper {
+    display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 50%;
+      height: 100%;
+  }
+
+  .image-wrapper:after {
+      content: ' ';
+      border-top: 40vh solid #9bcace;
+      border-right: 10vw solid transparent;
+      width: 0;
+      position: absolute;
+      top: 0;
+  }
+
+  .image-wrapper:after {
+      content: ' ';
+    border-bottom: 60vh solid #9bcace;
+      border-right: 10vw solid transparent;
+      width: 0;
+      position: absolute;
+      bottom: 0;
+  }
+
+  img {
+    margin: 0 auto; 
+  }
+
+  .content-wrapper {
+    font-family: 'Arial';
+      width: 50%;
+      background: #9bcace;
+      padding: 2em;
+  }
+
+  .section-wrapper {
+      margin-top: 1em;
+      border-bottom: 1px solid #666;
+      padding-bottom: 1em;
+  }
+
+  .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 33%;
+      padding-left: 0.5em;
+  }
+
+  input {
+    border: none;
+    padding: 6px;
+  }
+
+  .checkbox-wrapper {
+      display: flex;
+      flex-direction: row;
+      padding-left: 0.5em;
+  }
+
+  .button-wrapper {
+    margin-top: 0.5em;
+    padding-left: 0.5em;
+  }
+
+  button {
+    cursor: pointer;
+    background: #077a86;
+      color: #fff;
+      padding: 0.5em;
+      min-width: 150px;
+      border-radius: 0;
+      border: none;
+  }
+</style>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="header-wrapper">
+      <h1>Email Preference Center</h1>
+    </div>
+    <div class="section-wrapper" style="border: none;">
+      <div class="subheader-wrapper">
+        <h2>Update Your Email Address</h2>  
+      </div>
+      <div class="input-wrapper">
+        <label>Email Address</label>
+        <input type="email" name="email" value="%%=v(@EmailAddress)=%%">
+      </div>
+      <div class="button-wrapper">
+        <button>Update</button>
+      </div>
+    </div>
+    <form>
+      <div class="section-wrapper">
+        <div class="subheader-wrapper">
+          <h2>Newsletters</h2>  
+        </div>
+        <div>
+          <div class="checkbox-wrapper">
+            <input type="checkbox" name="quarterlyNewsletters" id="quarterlyNewsletters" %%[ IF @quaterlyNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+            <label for="quarterlyNewsletters">Quarterly Newsletters</label>
+          </div>
+        </div>
+      </div>  
+      <div class="section-wrapper">
+        <div>
+          <h2 class="subheader-wrapper">Programs</h2> 
+        </div>
+        <div>
+          <div class="checkbox-wrapper">
+            <input type="checkbox" name="cdcAdvancedHIVDisease" id="cdcAdvancedHIVDisease" %%[ IF @WeeklyNews==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+            <label for="cdcAdvancedHIVDisease">CDC Advanced HIV Disease</label>
+          </div>
+        </div>
+      </div>        
+      <div class="section-wrapper" style="border: none;">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
+          <label for="allSubscriptions">Unsubscribe from all email communications</label>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button onclick="handleSubmitPreferences()">Save Preferences</button>
+      </div>
+    </form>
+  </div>
+  <div class="image-wrapper">
+    <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/b3f98663-541a-4193-aeef-532127ba111d.png" />
+    <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
+  </div>
+</div>  
