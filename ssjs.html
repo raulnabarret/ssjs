@@ -201,7 +201,7 @@
         <button>Update</button>
       </div>
     </div>
-    <form>
+    <form onsubmit="handleSubmitPreferences()" runat="server">
       <div class="section-wrapper">
         <div class="subheader-wrapper">
           <h2>Newsletters</h2>  
@@ -241,5 +241,8 @@
   </div>
 </div>  
 <script runat="server" language="JavaScript">
-    Write("test");
+    function handleSubmitPreferences() {
+    Write("test");    
+    }
+    
 </script>
