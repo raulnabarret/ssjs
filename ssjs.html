@@ -231,7 +231,7 @@
         </div>
       </div>
       <div class="button-wrapper">
-        <button runat="server" onclick="handleSubmitPreferences()">Save Preferences</button>
+        <button onclick="handleSubmitPreferences()">Save Preferences</button>
       </div>
     </form>
   </div>
@@ -242,9 +242,5 @@
 </div>  
 <script runat="server" language="JavaScript">
     Platform.Load("core","1");
-    var api = new Script.Util.WSProxy();
-    
-    handleSubmitPreferences() {
-        Write("test");
-    }    
+    Write("test");
 </script>
