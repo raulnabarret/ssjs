@@ -8,7 +8,6 @@
 
     var api = new Script.Util.WSProxy();
 
-    Variable.SetValue('')
     var sub = {
         SubscriberKey: 'raulnabarret@gmail.com',
         EmailAddress: 'raulnabarret@gmail.com',
@@ -25,7 +24,6 @@
     };
 
     var res = api.updateItem("Subscriber", sub, options);
-    
 
 
     var cols = [
@@ -201,7 +199,7 @@
         <button>Update</button>
       </div>
     </div>
-    <form>
+    <form onsubmit="handleSubmitPreferences()" runat="server">
       <div class="section-wrapper">
         <div class="subheader-wrapper">
           <h2>Newsletters</h2>  
@@ -231,7 +229,7 @@
         </div>
       </div>
       <div class="button-wrapper">
-        <button onclick="handleSubmitPreferences()" runat="server">Save Preferences</button>
+        <button type="submit">Save Preferences</button>
       </div>
     </form>
   </div>
@@ -240,9 +238,12 @@
     <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
   </div>
 </div>  
-<script>
+<script runat="server" language="JavaScript">
+    Write("test out fucntion");    
     handleSubmitPreferences() {
-    Write("test");    
+        Platform.Load("core","1");
+        var api = new Script.Util.WSProxy();
+        Write("test fucntion");    
     }
     
 </script>
