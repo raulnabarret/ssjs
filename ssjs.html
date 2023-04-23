@@ -212,7 +212,7 @@
         <button>Update</button>
       </div>
     </div>
-    <form onsubmit="return handleSubmitPreferences();" >
+    <form action="%%=CloudPagesURL(7688)=%%" method="post" >
       <div class="section-wrapper">
         <div class="subheader-wrapper">
           <h2>Newsletters</h2>  
@@ -251,12 +251,3 @@
     <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
   </div>
 </div>  
-<script>
-    function handleSubmitPreferences() {
-        %%[
-
-            Output(v('@subscriberKey'))
-
-        ]%%
-    }
-</script>
