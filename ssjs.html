@@ -8,6 +8,18 @@
 
     var api = new Script.Util.WSProxy();
 
+    var subscriptionStatus = Subscriber.Retrieve({
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue("@subscriberKey")
+      });
+
+      if(subscriptionStatus[0].Status == "Active") {
+        Variable.SetValue("subscriptionStatus", true);
+      } else {
+        Variable.SetValue("subscriptionStatus", false);
+    }
+
     Variable.SetValue("@EmailAddress", 'raulnabarret@gmail.com');
     var sub = {
         SubscriberKey: 'raulnabarret@gmail.com',
@@ -225,7 +237,7 @@
       </div>        
       <div class="section-wrapper" style="border: none;">
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
+          <input type="checkbox" name="allSubscriptions" id="allSubscriptions" %%[ IF @subscriptionStatus==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
           <label for="allSubscriptions">Unsubscribe from all email communications</label>
         </div>
       </div>
@@ -239,7 +251,7 @@
     <img src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
   </div>
 </div>  
-<script runat="server" language="JavaScript">
+<script>
 
     function handleSubmitPreferences() {
         Platform.Load("core","1");
