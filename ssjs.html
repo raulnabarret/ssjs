@@ -212,7 +212,7 @@
         <button>Update</button>
       </div>
     </div>
-    <form onsubmit="return handleSubmitPreferences();" runat="server">
+    <form onsubmit="return handleSubmitPreferences();" >
       <div class="section-wrapper">
         <div class="subheader-wrapper">
           <h2>Newsletters</h2>  
@@ -237,7 +237,7 @@
       </div>        
       <div class="section-wrapper" style="border: none;">
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="allSubscriptions" id="allSubscriptions" %%[ IF @subscriptionStatus==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+          <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
           <label for="allSubscriptions">Unsubscribe from all email communications</label>
         </div>
       </div>
@@ -252,9 +252,11 @@
   </div>
 </div>  
 <script>
-
     function handleSubmitPreferences() {
-        Platform.Load("core","1");
-         console.log('...');
+        %%[
+
+            Output(v('test'))
+
+        ]%%
     }
 </script>
