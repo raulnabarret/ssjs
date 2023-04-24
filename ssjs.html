@@ -15,9 +15,9 @@
       });
 
       if(subscriptionStatus[0].Status == "Active") {
-        Variable.SetValue("subscriptionStatus", true);
+        Variable.SetValue("subscriptionStatusActive", true);
       } else {
-        Variable.SetValue("subscriptionStatus", false);
+        Variable.SetValue("subscriptionStatusActive", false);
     }
 
     Variable.SetValue("@EmailAddress", 'raulnabarret@gmail.com');
@@ -220,8 +220,13 @@
       </div>        
       <div class="section-wrapper" style="border: none;">
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
-          <label for="allSubscriptions">Unsubscribe from all email communications</label>
+            %%[IF @subscriptionStatusActive THEN]%%
+                <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
+                <label for="allSubscriptions">Unsubscribe from all email communications</label>
+            %%[ELSE]%%
+                <input type="checkbox" name="allSubscriptions" id="allSubscriptions">
+                <label for="allSubscriptions">Subscribe from all email communications</label>            
+            %%[ENDIF]%%
         </div>
       </div>
       <div class="button-wrapper">
