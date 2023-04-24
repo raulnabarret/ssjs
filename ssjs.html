@@ -23,7 +23,7 @@
         Variable.SetValue("subscriptionStatusActive", false);
     }
 
-    Variable.SetValue("@EmailAddress", 'raulnabarret@gmail.com');
+    Variable.SetValue("@EmailAddress", emailAddress);
 
     var cols = [
         "SubscriberKey",
@@ -41,7 +41,7 @@
     var qnFilter2 = {
         Property: "SubscriberKey",
         SimpleOperator: "equals",
-        Value: "raulnabarret@gmail.com"
+        Value: Variable.GetValue('@subscriberKey')
     };
     var qnComplexFilter = {
         LeftOperand: qnFilter1,
@@ -68,7 +68,7 @@
     var cdcAdvFilter2 = {
         Property: "SubscriberKey",
         SimpleOperator: "equals",
-        Value: "raulnabarret@gmail.com"
+        Value: Variable.GetValue('@subscriberKey')
     };
     var cdcAdvComplexFilter = {
         LeftOperand: cdcAdvFilter1,
