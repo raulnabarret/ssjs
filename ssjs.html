@@ -14,6 +14,9 @@
         Value: Variable.GetValue("@subscriberKey")
       });
 
+    var emailAddress = subscriptionStatus[0].EmailAddress;
+    Write("emailAddress: " + emailAddress);
+
       if(subscriptionStatus[0].Status == "Active") {
         Variable.SetValue("subscriptionStatusActive", true);
       } else {
