@@ -15,11 +15,10 @@
       });
 
     var emailAddress = subscriptionStatus[0].EmailAddress;
-    Write("emailAddress: " + emailAddress);
 
-      if(subscriptionStatus[0].Status == "Active") {
+    if(subscriptionStatus[0].Status == "Active") {
         Variable.SetValue("subscriptionStatusActive", true);
-      } else {
+    } else {
         Variable.SetValue("subscriptionStatusActive", false);
     }
 
@@ -55,7 +54,6 @@
     } else {
         Variable.SetValue("@quaterlyNewsletterIsActive",false);
     }
-    //Write("Response: " + Stringify(result1.Results[0]));
     //Get Quaterly Newsletter
 
     //Get CDC Advanced HIV Disease
