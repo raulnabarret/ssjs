@@ -21,23 +21,6 @@
     }
 
     Variable.SetValue("@EmailAddress", 'raulnabarret@gmail.com');
-    var sub = {
-        SubscriberKey: 'raulnabarret@gmail.com',
-        EmailAddress: 'raulnabarret@gmail.com',
-        Lists: [{
-            ID: '12608',
-            Status: 'Active'
-        }]
-    };
-    var options = { 
-        SaveOptions: [{
-          PropertyName: "*",
-          SaveAction: "UpdateAdd"
-        }]
-    };
-
-    var res = api.updateItem("Subscriber", sub, options);
-
 
     var cols = [
         "SubscriberKey",
