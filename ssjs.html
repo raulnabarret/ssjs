@@ -82,6 +82,32 @@
     }
     //Get MetaECHO Newsletter
 
+    //Get NM Programs Newsletter
+    var nmpmFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12704"
+    };
+
+    var nmpmFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var nmpmJoinFilter = {
+        LeftOperand: nmpmFilter1,
+        LogicalOperator: "AND",
+        RightOperand: nmpmFilter2
+    }
+
+    var nmpmResult = api.retrieve("ListSubscriber", cols, nmpmJoinFilter);
+    if(nmpmResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@nmProgramsNewsletterIsActive",true);
+    } else {
+        Variable.SetValue("@nmProgramsNewsletterIsActive",false);
+    }
+    //Get NM Programs Newsletter
+
     //Get CDC Advanced HIV Disease
     var cdcAdvFilter1 = {
         Property: "ListID",
@@ -247,6 +273,11 @@
             <div class="checkbox-wrapper">
                 <input type="checkbox" name="metaECHONewsletter" id="metaECHONewsletter" %%[ IF @metaECHONewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
                 <label for="metaECHONewsletter">Meta ECHO Newsletter</label>
+            </div>
+            <!---->
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="nmProgramsNewsletter" id="nmProgramsNewsletter" %%[ IF @nmProgramsNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="nmProgramsNewsletter">NM Programs Newsletter</label>
             </div>
             <!---->
         </div>
