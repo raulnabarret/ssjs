@@ -57,25 +57,25 @@
     //Get Quaterly Newsletter
 
     //Get MetaECHO Newsletter
-    var filter3 = {
+    var menFilter1 = {
         Property: "ListID",
         SimpleOperator: "equals",
         Value: "12704"
     };
 
-    var filter4 = {
+    var menFilter2 = {
         Property: "SubscriberKey",
         SimpleOperator: "equals",
         Value: Variable.GetValue('@subscriberKey')
     };
-    var qnComplexFilter = {
-        LeftOperand: filter3,
+    var menJoinFilter = {
+        LeftOperand: menFilter1,
         LogicalOperator: "AND",
-        RightOperand: filter4
+        RightOperand: menFilter2
     }
 
-    var result2 = api.retrieve("ListSubscriber", cols, qnComplexFilter);
-    if(result2.Results[0].Status === 'Active') {
+    var menResult = api.retrieve("ListSubscriber", cols, menJoinFilter);
+    if(menResult.Results[0].Status === 'Active') {
         Variable.SetValue("@metaECHONewsletterIsActive",true);
     } else {
         Variable.SetValue("@metaECHONewsletterIsActive",false);
