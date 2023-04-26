@@ -56,6 +56,32 @@
     }
     //Get Quaterly Newsletter
 
+    //Get MetaECHO Newsletter
+    var filter3 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12704"
+    };
+
+    var filter4 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var qnComplexFilter = {
+        LeftOperand: filter3,
+        LogicalOperator: "AND",
+        RightOperand: filter4
+    }
+
+    var result2 = api.retrieve("ListSubscriber", cols, qnComplexFilter);
+    if(result2.Results[0].Status === 'Active') {
+        Variable.SetValue("@metaECHONewsletterIsActive",true);
+    } else {
+        Variable.SetValue("@metaECHONewsletterIsActive",false);
+    }
+    //Get MetaECHO Newsletter
+
     //Get CDC Advanced HIV Disease
     var cdcAdvFilter1 = {
         Property: "ListID",
@@ -74,8 +100,8 @@
         RightOperand: cdcAdvFilter2
     }
 
-    var result2 = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
-    if(result2.Results[0].Status === 'Active') {
+    var result3 = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
+    if(result3.Results[0].Status === 'Active') {
         Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",true);
     } else {
         Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
@@ -212,10 +238,17 @@
           <h2>Newsletters</h2>  
         </div>
         <div>
-          <div class="checkbox-wrapper">
-            <input type="checkbox" name="quarterlyNewsletters" id="quarterlyNewsletters" %%[ IF @quaterlyNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
-            <label for="quarterlyNewsletters">Quarterly Newsletters</label>
-          </div>
+            <!---->
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="quarterlyNewsletters" id="quarterlyNewsletters" %%[ IF @quaterlyNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="quarterlyNewsletters">Quarterly Newsletters</label>
+            </div>
+            <!---->
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="metaECHONewsletter" id="metaECHONewsletter" %%[ IF @metaECHONewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="metaECHONewsletter">Meta ECHO Newsletter</label>
+            </div>
+            <!---->
         </div>
       </div>  
       <div class="section-wrapper">
