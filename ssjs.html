@@ -83,30 +83,56 @@
     //Get MetaECHO Newsletter
 
     //Get NM Programs Newsletter
-    var nmpmFilter1 = {
+    var nmpnFilter1 = {
         Property: "ListID",
         SimpleOperator: "equals",
         Value: "12704"
     };
 
-    var nmpmFilter2 = {
+    var nmpnFilter2 = {
         Property: "SubscriberKey",
         SimpleOperator: "equals",
         Value: Variable.GetValue('@subscriberKey')
     };
-    var nmpmJoinFilter = {
-        LeftOperand: nmpmFilter1,
+    var nmpnJoinFilter = {
+        LeftOperand: nmpnFilter1,
         LogicalOperator: "AND",
-        RightOperand: nmpmFilter2
+        RightOperand: nmpnFilter2
     }
 
-    var nmpmResult = api.retrieve("ListSubscriber", cols, nmpmJoinFilter);
-    if(nmpmResult.Results[0].Status === 'Active') {
+    var nmpnResult = api.retrieve("ListSubscriber", cols, nmpnJoinFilter);
+    if(nmpnResult.Results[0].Status === 'Active') {
         Variable.SetValue("@nmProgramsNewsletterIsActive",true);
     } else {
         Variable.SetValue("@nmProgramsNewsletterIsActive",false);
     }
     //Get NM Programs Newsletter
+
+    //Get SuperHubs Newsletter
+    var shnFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12704"
+    };
+
+    var shnFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var shnJoinFilter = {
+        LeftOperand: shnFilter1,
+        LogicalOperator: "AND",
+        RightOperand: shnFilter2
+    }
+
+    var shnResult = api.retrieve("ListSubscriber", cols, shnJoinFilter);
+    if(shnResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@superHubsNewsletterIsActive",true);
+    } else {
+        Variable.SetValue("@superHubsNewsletterIsActive",false);
+    }
+    //Get SuperHubs Newsletter
 
     //Get CDC Advanced HIV Disease
     var cdcAdvFilter1 = {
@@ -132,7 +158,6 @@
     } else {
         Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
     }
-    //Write("Response: " + Stringify(result2.Results[0]));
     //Get CDC Advanced HIV Disease
 </script>
 <style type="text/css">
@@ -278,6 +303,11 @@
             <div class="checkbox-wrapper">
                 <input type="checkbox" name="nmProgramsNewsletter" id="nmProgramsNewsletter" %%[ IF @nmProgramsNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
                 <label for="nmProgramsNewsletter">NM Programs Newsletter</label>
+            </div>
+            <!---->
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="superHubsNewsletter" id="superHubsNewsletter" %%[ IF @superHubsNewsletterIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="superHubsNewsletter">SuperHubs Newsletter</label>
             </div>
             <!---->
         </div>
