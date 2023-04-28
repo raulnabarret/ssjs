@@ -216,7 +216,7 @@
     var whaFilter1 = {
         Property: "ListID",
         SimpleOperator: "equals",
-        Value: "12708"
+        Value: "12709"
     };
 
     var whaFilter2 = {
@@ -242,7 +242,7 @@
     var walvsFilter1 = {
         Property: "ListID",
         SimpleOperator: "equals",
-        Value: "12708"
+        Value: "12710"
     };
 
     var walvsFilter2 = {
@@ -263,6 +263,110 @@
         Variable.SetValue("@whoAfroLabVCOPIsActive",false);
     }
     //WHO AFRO Lab vCOP (SURGE)
+
+    //WHO Global IPC Community of Practice Platform
+    var wgicppFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12711"
+    };
+
+    var wgicppFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var wgicppJoinFilter = {
+        LeftOperand: wgicppFilter1,
+        LogicalOperator: "AND",
+        RightOperand: wgicppFilter2
+    }
+
+    var wgicppResult = api.retrieve("ListSubscriber", cols, wgicppJoinFilter);
+    if(wgicppResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",true);
+    } else {
+        Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",false);
+    }
+    //WHO Global IPC Community of Practice Platform
+
+    //Global Palliative Care ECHO Partnership
+    var gpcepFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12712"
+    };
+
+    var gpcepFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var gpcepJoinFilter = {
+        LeftOperand: gpcepFilter1,
+        LogicalOperator: "AND",
+        RightOperand: gpcepFilter2
+    }
+
+    var gpcepResult = api.retrieve("ListSubscriber", cols, gpcepJoinFilter);
+    if(gpcepResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",true);
+    } else {
+        Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",false);
+    }
+    //Global Palliative Care ECHO Partnership
+
+    //Cancer Initiative
+    var ciFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12713"
+    };
+
+    var ciFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var ciJoinFilter = {
+        LeftOperand: ciFilter1,
+        LogicalOperator: "AND",
+        RightOperand: ciFilter2
+    }
+
+    var ciResult = api.retrieve("ListSubscriber", cols, ciJoinFilter);
+    if(ciResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@cancerInitiativeIsActive",true);
+    } else {
+        Variable.SetValue("@cancerInitiativeIsActive",false);
+    }
+    //Cancer Initiative
+
+    //COVID19 Vaccination - Building Global Capacity
+    var cvbgcFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12714"
+    };
+
+    var cvbgcFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var cvbgcJoinFilter = {
+        LeftOperand: cvbgcFilter1,
+        LogicalOperator: "AND",
+        RightOperand: cvbgcFilter2
+    }
+
+    var cvbgcResult = api.retrieve("ListSubscriber", cols, cvbgcJoinFilter);
+    if(cvbgcResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@covid19VaccinationIsActive",true);
+    } else {
+        Variable.SetValue("@covid19VaccinationIsActive",false);
+    }
+    //COVID19 Vaccination - Building Global Capacity
 </script>
 <style type="text/css">
   h1, h2 {
