@@ -172,19 +172,97 @@
         SimpleOperator: "equals",
         Value: Variable.GetValue('@subscriberKey')
     };
-    var ipcgcFJoinFilter = {
+    var ipcgcJoinFilter = {
         LeftOperand: ipcgcFilter1,
         LogicalOperator: "AND",
         RightOperand: ipcgcFilter2
     }
 
-    var ipcgcResult = api.retrieve("ListSubscriber", cols, ipcgcFJoinFilter);
+    var ipcgcResult = api.retrieve("ListSubscriber", cols, ipcgcJoinFilter);
     if(ipcgcResult.Results[0].Status === 'Active') {
         Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",true);
     } else {
         Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",false);
     }
     //Infection Prevention and Control Global Community
+
+    //WHO Nursing and Midwifery
+    var wnmFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12708"
+    };
+
+    var wnmFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var wnmJoinFilter = {
+        LeftOperand: wnmFilter1,
+        LogicalOperator: "AND",
+        RightOperand: wnmFilter2
+    }
+
+    var wnmResult = api.retrieve("ListSubscriber", cols, wnmJoinFilter);
+    if(wnmResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@whoNursingMidwiferyIsActive",true);
+    } else {
+        Variable.SetValue("@whoNursingMidwiferyIsActive",false);
+    }
+    //WHO Nursing and Midwifery
+
+    //WHO HQ AMR
+    var whaFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12708"
+    };
+
+    var whaFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var whaJoinFilter = {
+        LeftOperand: whaFilter1,
+        LogicalOperator: "AND",
+        RightOperand: whaFilter2
+    }
+
+    var whaResult = api.retrieve("ListSubscriber", cols, whaJoinFilter);
+    if(whaResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@whoHQAMRIsActive",true);
+    } else {
+        Variable.SetValue("@whoHQAMRIsActive",false);
+    }
+    //WHO HQ AMR
+
+    //WHO AFRO Lab vCOP (SURGE)
+    var walvsFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12708"
+    };
+
+    var walvsFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var walvsJoinFilter = {
+        LeftOperand: walvsFilter1,
+        LogicalOperator: "AND",
+        RightOperand: walvsFilter2
+    }
+
+    var walvsResult = api.retrieve("ListSubscriber", cols, walvsJoinFilter);
+    if(walvsResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@whoAfroLabVCOPIsActive",true);
+    } else {
+        Variable.SetValue("@whoAfroLabVCOPIsActive",false);
+    }
+    //WHO AFRO Lab vCOP (SURGE)
 </script>
 <style type="text/css">
   h1, h2 {
