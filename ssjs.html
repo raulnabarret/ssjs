@@ -159,6 +159,32 @@
         Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
     }
     //Get CDC Advanced HIV Disease
+
+    //Infection Prevention and Control Global Community
+    var ipcgcFilter1 = {
+        Property: "ListID",
+        SimpleOperator: "equals",
+        Value: "12707"
+    };
+
+    var ipcgcFilter2 = {
+        Property: "SubscriberKey",
+        SimpleOperator: "equals",
+        Value: Variable.GetValue('@subscriberKey')
+    };
+    var ipcgcFJoinFilter = {
+        LeftOperand: ipcgcFilter1,
+        LogicalOperator: "AND",
+        RightOperand: ipcgcFilter2
+    }
+
+    var ipcgcResult = api.retrieve("ListSubscriber", cols, ipcgcFJoinFilter);
+    if(ipcgcResult.Results[0].Status === 'Active') {
+        Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",true);
+    } else {
+        Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",false);
+    }
+    //Infection Prevention and Control Global Community
 </script>
 <style type="text/css">
   h1, h2 {
@@ -317,10 +343,43 @@
           <h2 class="subheader-wrapper">Programs</h2> 
         </div>
         <div>
-          <div class="checkbox-wrapper">
-            <input type="checkbox" name="cdcAdvancedHIVDisease" id="cdcAdvancedHIVDisease" %%[ IF @cdcAdvancedHIVDiseaseIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
-            <label for="cdcAdvancedHIVDisease">CDC Advanced HIV Disease</label>
-          </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="cdcAdvancedHIVDisease" id="cdcAdvancedHIVDisease" %%[ IF @cdcAdvancedHIVDiseaseIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="cdcAdvancedHIVDisease">CDC Advanced HIV Disease</label>
+            </div>
+            <!---->
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="infectionPreventionControlGlobalCommunity" id="infectionPreventionControlGlobalCommunity" %%[ IF @infectionPreventionControlGlobalCommunityIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="infectionPreventionControlGlobalCommunity">Infection Prevention and Control Global Community</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="whoNursingMidwifery" id="whoNursingMidwifery" %%[ IF @whoNursingMidwiferyIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="whoNursingMidwifery">WHO Nursing and Midwifery</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="whoHQAMR" id="whoHQAMR" %%[ IF @whoHQAMRIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="whoHQAMR">WHO HQ AMR</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="whoAfroLabVCOP" id="whoAfroLabVCOP" %%[ IF @whoAfroLabVCOPIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="whoAfroLabVCOP">WHO AFRO Lab vCOP (SURGE)</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="whoGlobalIPCCommunityPracticePlatform" id="whoGlobalIPCCommunityPracticePlatform" %%[ IF @whoGlobalIPCCommunityPracticePlatformIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="whoGlobalIPCCommunityPracticePlatform">WHO Global IPC Community of Practice Platform</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="globalPallativeCareECHOPartnership" id="globalPallativeCareECHOPartnership" %%[ IF @globalPallativeCareECHOPartnershipIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="globalPallativeCareECHOPartnership">Global Palliative Care ECHO Partnership</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="cancerInitiative" id="cancerInitiative" %%[ IF @cancerInitiativeIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="cancerInitiative">Cancer Initiative</label>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" name="covid19Vaccination" id="covid19Vaccination" %%[ IF @covid19VaccinationIsActive==true THEN ]%%checked="checked" %%[ ENDIF ]%%>
+                <label for="covid19Vaccination">COVID19 Vaccination - Building Global Capacity</label>
+            </div>
         </div>
       </div>        
       <div class="section-wrapper" style="border: none;">
