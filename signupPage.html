@@ -1,0 +1,125 @@
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="header-wrapper">
+      <h1>Sign Up Page</h1>
+    </div>
+    <div class="section-wrapper" style="border: none;">
+      <div class="subheader-wrapper">
+        <h2>Create your Account</h2>  
+      </div>
+      <form action="%%=CloudPagesURL(7737)=%%" method="post">
+        <div class="input-wrapper">
+          <label><abbr style="color: red;">*</abbr> First Name</label>
+          <input required type="text" name="firstName" id="firstName">
+        </div>
+        <div class="input-wrapper">
+          <label><abbr style="color: red;">*</abbr> Last Name</label>
+          <input required type="text" name="lastName" id="lastName">
+        </div>        
+        <div class="input-wrapper">
+          <label><abbr style="color: red;">*</abbr> Email Address</label>
+          <input required type="email" name="emailAddress" id="emailAddress">
+        </div>
+        <div class="button-wrapper">
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="image-wrapper">
+    <img style="width: 50%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/b3f98663-541a-4193-aeef-532127ba111d.png" />
+    <img style="width: 100%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
+  </div>
+</div>
+<style type="text/css">
+  h1, h2 {
+    color: #ccc;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 2em;
+  }
+
+  .subheader-wrapper {
+    margin-bottom: 0.25em;
+  }
+
+  .wrapper {
+    color: #dfdfdf;
+    display: flex;
+    height: calc(100% + 16px);
+    margin: -8px;
+  }
+  
+  .content-wrapper {
+    font-family: 'Arial';
+    width: 50%;
+    background: #077a86;
+    padding: 2em;
+  }
+
+  .section-wrapper {
+    margin-top: 1em;
+    border-bottom: 1px solid #666;
+    padding-bottom: 1em;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    padding-left: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  input {
+    border: none;
+    padding: 6px;
+  }
+  .image-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+    height: 100%;
+  }
+
+  .image-wrapper:after {
+    content: ' ';
+    border-top: 40vh solid #077a86;
+    border-right: 10vw solid transparent;
+    width: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  .image-wrapper:after {
+    content: ' ';
+    border-bottom: 60vh solid #077a86;
+    border-right: 10vw solid transparent;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+  }
+
+  img {
+    margin: 0 auto; 
+  }
+  
+  .button-wrapper {
+    margin-top: 0.5em;
+    padding-left: 0.5em;
+  }
+
+  button {
+    cursor: pointer;
+    background: #9bcace;
+    color: #63666a;
+    padding: 0.5em;
+    min-width: 150px;
+    border-radius: 0;
+    border: none;
+  }
+</style>
