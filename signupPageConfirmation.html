@@ -1,0 +1,208 @@
+%%[
+ SET @emailAddress = RequestParameter('emailAddress')
+ SET @firstName = RequestParameter('firstName')
+ SET @lastName = RequestParameter('lastName')
+]%%
+<script runat="server" type="JavaScript">
+ Platform.Load('core', '1');
+ var api = new Script.Util.WSProxy();
+ //
+ try{
+  var emailAddress = Variable.GetValue("@emailAddress");
+  var firstName = Variable.GetValue("@firstName");
+  var lastName = Variable.GetValue("@lastName");
+  var filterKey1 = {
+   Property: "SubscriberKey",
+   SimpleOperator: "equals",
+   Value: emailAddress
+  }
+  var filterEmail1 = {
+  Property: "EmailAddress",
+  SimpleOperator: "equals",
+  Value: emailAddress
+  }  
+  var joinFilterMatch1 = {
+   LeftOperand: filterKey1,
+   LogicalOperator: "AND",
+   RightOperand: filterEmail1   
+  }
+  var subscribersEmailKeyMatch = Subscriber.Retrieve(joinFilterMatch1);
+  
+  var filterKey2 = {
+   Property: "SubscriberKey",
+   SimpleOperator: "equals",
+   Value: emailAddress
+  }
+  var filterEmail2 = {
+  Property: "EmailAddress",
+  SimpleOperator: "notEquals",
+  Value: emailAddress
+  }  
+  var joinFilterMatch2 = {
+   LeftOperand: filterKey2,
+   LogicalOperator: "AND",
+   RightOperand: filterEmail2   
+  }
+  var subscribersKeyMatchesEmailNot = Subscriber.Retrieve(joinFilterMatch2);
+
+  var filterKey3 = {
+   Property: "SubscriberKey",
+   SimpleOperator: "notEquals",
+   Value: emailAddress
+  }
+  var filterEmail3 = {
+  Property: "EmailAddress",
+  SimpleOperator: "equals",
+  Value: emailAddress
+  }  
+  var joinFilterMatch3 = {
+   LeftOperand: filterKey3,
+   LogicalOperator: "AND",
+   RightOperand: filterEmail3   
+  }
+  var subscribersEmailMatchesKeyNot = Subscriber.Retrieve(joinFilterMatch3);
+  
+  if(subscribersEmailKeyMatch && subscribersEmailKeyMatch.length > 0) {
+   Variable.SetValue("accountAlreadyExists", true)
+  } else if (subscribersEmailMatchesKeyNot && subscribersEmailMatchesKeyNot.length > 0) {
+   Variable.SetValue("accountAlreadyExists", true) 
+   } else if (subscribersKeyMatchesEmailNot && subscribersKeyMatchesEmailNot.length > 0) {  
+   var now = Math.floor(Date.now() / 1000)
+   var subscriberKey = emailAddress+now;
+   var newSubscriber = {
+    "EmailAddress": emailAddress,
+    "SubscriberKey": subscriberKey,
+    "EmailTypePreference": "HTML",
+    "Attributes": {"First Name": firstName, "Last Name": lastName },
+    "Lists": {"Status": "Active", "ID": 1222, "Action": "Create"}
+  };
+   var result = Subscriber.Add(newSubscriber);
+   Variable.SetValue("newAccountCreated", true)
+  } else {
+   var newSubscriber = {
+    "EmailAddress": emailAddress,
+    "SubscriberKey": emailAddress,
+    "EmailTypePreference": "HTML",
+    "Attributes": {"First Name": firstName, "Last Name": lastName },
+    "Lists": {"Status": "Active", "ID": 1222, "Action": "Create"}
+   };
+   var result = Subscriber.Add(newSubscriber);
+   Variable.SetValue("newAccountCreated", true)
+  }
+  
+ } catch (error) {
+  Write(error)
+ }
+</script>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="header-wrapper">
+      <h1>Sign Up Page</h1>
+    </div>
+    <div>
+       %%[IF @accountAlreadyExists THEN]%%
+      <p style="font-weight: 400;">You are already signed up in our system with that email address</p>
+       %%[ELSEIF @newAccountCreated THEN]%%
+      <p style="font-weight: 400;">Your account was successfully created!</p>
+       %%[ENDIF]%%
+      <form action="%%=CloudPagesURL(7736)=%%" method="post" >
+        <button type="submit">Go back to Sign Up page</button>
+      </form>
+    </div>
+  </div>
+    <div class="image-wrapper">
+      <img style="width: 50%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/b3f98663-541a-4193-aeef-532127ba111d.png" />
+     <img style="width: 100%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
+  </div>
+</div>
+<style type="text/css">
+  h1, h2 {
+    color: #ccc;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 2em;
+  }
+
+  .subheader-wrapper {
+    margin-bottom: 0.25em;
+  }
+
+  .wrapper {
+    color: #dfdfdf;
+    display: flex;
+    height: calc(100% + 16px);
+    margin: -8px;
+  }
+  
+  .content-wrapper {
+    font-family: 'Arial';
+    width: 50%;
+    background: #077a86;
+    padding: 2em;
+  }
+
+  .section-wrapper {
+    margin-top: 1em;
+    border-bottom: 1px solid #666;
+    padding-bottom: 1em;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    padding-left: 0.5em;
+  }
+
+  input {
+    border: none;
+    padding: 6px;
+  }
+  .image-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+    height: 100%;
+  }
+
+  .image-wrapper:after {
+    content: ' ';
+    border-top: 40vh solid #077a86;
+    border-right: 10vw solid transparent;
+    width: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  .image-wrapper:after {
+    content: ' ';
+    border-bottom: 60vh solid #077a86;
+    border-right: 10vw solid transparent;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+  }
+
+  img {
+    margin: 0 auto; 
+  }
+  
+  .button-wrapper {
+    margin-top: 0.5em;
+    padding-left: 0.5em;
+  }
+
+  button {
+    cursor: pointer;
+    background: #9bcace;
+    color: #63666a;
+    padding: 0.5em;
+    min-width: 150px;
+    border-radius: 0;
+    border: none;
+  }
+</style>
