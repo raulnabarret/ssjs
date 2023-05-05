@@ -1,0 +1,250 @@
+%%[
+SET @formType = RequestParameter("formType")
+SET @subscriberKey = RequestParameter("subscriberKey")
+SET @emailAddress = RequestParameter("emailAddress")
+SET @quarterlyNewsletters = RequestParameter("quarterlyNewsletters")
+SET @metaECHONewsletter = RequestParameter("metaECHONewsletter")
+SET @nmProgramsNewsletter = RequestParameter("nmProgramsNewsletter")
+SET @superHubsNewsletter = RequestParameter("superHubsNewsletter")
+SET @cdcAdvancedHIVDisease = RequestParameter("cdcAdvancedHIVDisease")
+SET @infectionPreventionControlGlobalCommunity = RequestParameter("infectionPreventionControlGlobalCommunity")
+SET @whoNursingMidwifery = RequestParameter("whoNursingMidwifery")
+SET @whoHQAMR = RequestParameter("whoHQAMR")
+SET @whoAfroLabVCOP = RequestParameter("whoAfroLabVCOP")
+SET @whoGlobalIPCCommunityPracticePlatform = RequestParameter("whoGlobalIPCCommunityPracticePlatform")
+SET @globalPallativeCareECHOPartnership = RequestParameter("globalPallativeCareECHOPartnership")
+SET @cancerInitiative = RequestParameter("cancerInitiative")
+SET @covid19Vaccination = RequestParameter("covid19Vaccination")
+
+SET @unsubscribeAll = RequestParameter("allSubscriptions")
+SET @resubscribeAll = RequestParameter("resubscribeAllSubscriptions")
+]%%
+<script runat="server" language="JavaScript">
+  Platform.Load("core","1");
+  var api = new Script.Util.WSProxy();
+  //
+  try{
+  var formType = Variable.GetValue("@formType")
+  var subscriberKey = Variable.GetValue("@subscriberKey")
+  var emailAddress = Variable.GetValue("@emailAddress")
+  if(formType === 'preferences') {
+      var quarterlyNewsletters = Variable.GetValue("@quarterlyNewsletters");
+      var quarterlyNewslettersStatus = quarterlyNewsletters && quarterlyNewsletters === 'on' ? 'Active' : 'Unsubscribed';
+      var metaECHONewsletter = Variable.GetValue("@metaECHONewsletter");
+      var metaECHONewsletterStatus = metaECHONewsletter && metaECHONewsletter === 'on' ? 'Active' : 'Unsubscribed';
+      var nmProgramsNewsletter = Variable.GetValue("@nmProgramsNewsletter");
+      var nmProgramsNewsletterStatus = nmProgramsNewsletter && nmProgramsNewsletter === 'on' ? 'Active' : 'Unsubscribed';
+      var superHubsNewsletter = Variable.GetValue("@superHubsNewsletter");
+      var superHubsNewsletterStatus = superHubsNewsletter && superHubsNewsletter === 'on' ? 'Active' : 'Unsubscribed'; 
+      var cdcAdvancedHIVDisease = Variable.GetValue("@cdcAdvancedHIVDisease");
+      var cdcAdvancedHIVDiseaseStatus = cdcAdvancedHIVDisease && cdcAdvancedHIVDisease === 'on' ? 'Active' : 'Unsubscribed';    
+      var infectionPreventionControlGlobalCommunity = Variable.GetValue("@infectionPreventionControlGlobalCommunity");
+      var infectionPreventionControlGlobalCommunityStatus = infectionPreventionControlGlobalCommunity && infectionPreventionControlGlobalCommunity === 'on' ? 'Active' : 'Unsubscribed';     
+      var whoNursingMidwifery = Variable.GetValue("@whoNursingMidwifery");
+      var whoNursingMidwiferyStatus = whoNursingMidwifery && whoNursingMidwifery === 'on' ? 'Active' : 'Unsubscribed';        
+      var whoHQAMR = Variable.GetValue("@whoHQAMR");
+      var whoHQAMRStatus = whoHQAMR && whoHQAMR === 'on' ? 'Active' : 'Unsubscribed';      
+      var whoAfroLabVCOP = Variable.GetValue("@whoAfroLabVCOP");
+      var whoAfroLabVCOPStatus = whoAfroLabVCOP && whoAfroLabVCOP === 'on' ? 'Active' : 'Unsubscribed';        
+      var whoGlobalIPCCommunityPracticePlatform = Variable.GetValue("@whoGlobalIPCCommunityPracticePlatform");
+      var whoGlobalIPCCommunityPracticePlatformStatus = whoGlobalIPCCommunityPracticePlatform && whoGlobalIPCCommunityPracticePlatform === 'on' ? 'Active' : 'Unsubscribed';        
+      var globalPallativeCareECHOPartnership = Variable.GetValue("@globalPallativeCareECHOPartnership");
+      var globalPallativeCareECHOPartnershipStatus = globalPallativeCareECHOPartnership && globalPallativeCareECHOPartnership === 'on' ? 'Active' : 'Unsubscribed';
+      var cancerInitiative = Variable.GetValue("@cancerInitiative");
+      var cancerInitiativeStatus = cancerInitiative && cancerInitiative === 'on' ? 'Active' : 'Unsubscribed';
+      var covid19Vaccination = Variable.GetValue("@covid19Vaccination");
+      var covid19VaccinationStatus = covid19Vaccination && covid19Vaccination === 'on' ? 'Active' : 'Unsubscribed';
+      var unsubscribeAll = Variable.GetValue("@unsubscribeAll");
+      var resubscribeAll = Variable.GetValue('@resubscribeAll');
+      var allSubscriptionsStatus;
+      if(unsubscribeAll && unsubscribeAll === 'on') {
+       allSubscriptionsStatus = 'Unsubscribed'
+      } else if (resubscribeAll && resubscribeAll === 'on') {
+       allSubscriptionsStatus = 'Active'
+      } else {
+        allSubscriptionsStatus = 'Active'
+      }
+      var sub = {
+        SubscriberKey: subscriberKey,
+        Status: allSubscriptionsStatus,
+        Lists: [
+          {
+            ID: '12608',
+            Status: quarterlyNewslettersStatus
+          },
+          {
+             ID: '12704',
+            Status: metaECHONewsletterStatus
+          },
+          {
+            ID: '12705',
+            Status: nmProgramsNewsletterStatus
+          },
+          {
+            ID: '12706',
+            Status: superHubsNewsletterStatus
+          },
+          {
+            ID: '12630',
+            Status: cdcAdvancedHIVDiseaseStatus
+          },
+          {
+            ID: '12707',
+            Status: infectionPreventionControlGlobalCommunityStatus
+          },
+          {
+            ID: '12708',
+            Status: whoNursingMidwiferyStatus
+          },
+          {
+            ID: '12709',
+            Status: whoHQAMRStatus
+          },
+          {
+            ID: '12710',
+            Status: whoAfroLabVCOPStatus
+          },
+          {
+            ID: '12711',
+            Status: whoGlobalIPCCommunityPracticePlatformStatus
+          },
+          {
+            ID: '12712',
+            Status: globalPallativeCareECHOPartnershipStatus
+          },
+          {
+            ID: '12713',
+            Status: cancerInitiativeStatus
+          },
+          {
+            ID: '12714',
+            Status: covid19VaccinationStatus
+          },
+          {
+            ID: '1222',
+            Status: allSubscriptionsStatus
+          }
+        ]
+        };
+      var options = { 
+        SaveOptions: [{
+          PropertyName: "*",
+          SaveAction: "UpdateAdd"
+        }]
+      };
+      var res = api.updateItem("Subscriber", sub, options);
+      Variable.SetValue("@responseStatus",res.Status);
+    } else if (formType === 'email') {
+      //Validate if does not exist a subscriber with that email address, if email address is not in use, then update. Else, throw an error
+      var sub = {
+       SubscriberKey: subscriberKey,
+        EmailAddress: emailAddress
+      };
+      var options = {
+       SaveOptions: [{
+        PropertyName: "*",
+        SaveAction: "UpdateAdd"
+       }]
+      }
+      var res = api.updateItem("Subscriber", sub, options);
+      Variable.SetValue("@responseStatus", res.Status);
+    }  
+  } catch (error) {
+   Write(error)
+  }
+</script>
+<style type="text/css">
+  h1, h2 {
+    color: #ccc;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 2em;
+  }
+
+  .subheader-wrapper {
+    margin-bottom: 0.25em;
+  }
+
+  .wrapper {
+    color: #dfdfdf;
+    display: flex;
+      height: calc(100% + 16px);
+      margin: -8px;
+  }
+    .content-wrapper {
+    font-family: 'Arial';
+      width: 50%;
+      background: #077a86;
+      padding: 2em;
+  }
+
+  .section-wrapper {
+      margin-top: 1em;
+      border-bottom: 1px solid #666;
+      padding-bottom: 1em;
+  }
+    .image-wrapper {
+    display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 50%;
+      height: 100%;
+  }
+
+  .image-wrapper:after {
+      content: ' ';
+      border-top: 40vh solid #077a86;
+      border-right: 10vw solid transparent;
+      width: 0;
+      position: absolute;
+      top: 0;
+  }
+
+  .image-wrapper:after {
+      content: ' ';
+    border-bottom: 60vh solid #077a86;
+      border-right: 10vw solid transparent;
+      width: 0;
+      position: absolute;
+      bottom: 0;
+  }
+
+  img {
+    margin: 0 auto; 
+  }
+  
+  button {
+    cursor: pointer;
+    background: #9bcace;
+      color: #63666a;
+      padding: 0.5em;
+      min-width: 150px;
+      border-radius: 0;
+      border: none;
+  }
+</style>
+<div class="wrapper">
+  <div class="content-wrapper">
+    <div class="header-wrapper">
+      <h1>Email Preference Center</h1>
+    </div>
+    <div>
+       %%[IF @responseStatus == 'OK' THEN]%%
+      <p style="font-weight: 400;">Your profile was successfully updated!</p>
+       %%[ELSE]%%
+      <p style="font-weight: 400;">There was an error trying to update your preferences. Please try again later.</p>
+       %%[ENDIF]%%
+      <!--TODO: Pass Email/SubscriberKy-->
+      <form action="%%=CloudPagesURL(7665)=%%" method="post" >
+        <button type="submit">Go to Preference Center</button>
+      </form>
+    </div>
+  </div>
+    <div class="image-wrapper">
+      <img style="width: 50%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/b3f98663-541a-4193-aeef-532127ba111d.png" />
+     <img style="width: 100%;" src="https://image.s12.sfmc-content.com/lib/fe28117371640475771d78/m/1/440d1024-6fac-43bd-ae2c-b92e6d51b3cb.png" />
+  </div>
+</div>
