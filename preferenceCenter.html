@@ -1,6 +1,5 @@
 %%[ 
-  SET @subscriberKey = 'raulnabarret@gmail.com' 
- 
+  SET @subscriberKey = _subscriberkey
 ]%%
 
 <script runat="server" language="JavaScript">
@@ -8,365 +7,369 @@
 
     var api = new Script.Util.WSProxy();
 
-    var subscriptionStatus = Subscriber.Retrieve({
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue("@subscriberKey")
-      });
+    try{
+        var subscriptionStatus = Subscriber.Retrieve({
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue("@subscriberKey")
+          });
 
-    var emailAddress = subscriptionStatus[0].EmailAddress;
+        var emailAddress = subscriptionStatus[0].EmailAddress;
 
-    if(subscriptionStatus[0].Status == "Active") {
-        Variable.SetValue("subscriptionStatusActive", true);
-    } else {
-        Variable.SetValue("subscriptionStatusActive", false);
+        if(subscriptionStatus[0].Status == "Active") {
+            Variable.SetValue("subscriptionStatusActive", true);
+        } else {
+            Variable.SetValue("subscriptionStatusActive", false);
+        }
+
+        Variable.SetValue("@EmailAddress", emailAddress);
+
+        var cols = [
+            "SubscriberKey",
+            "ListID",
+            "Status"
+        ];
+
+        //Get Quaterly Newsletter
+        var qnFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12608"
+        };
+
+        var qnFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var qnComplexFilter = {
+            LeftOperand: qnFilter1,
+            LogicalOperator: "AND",
+            RightOperand: qnFilter2
+        }
+
+        var result1 = api.retrieve("ListSubscriber", cols, qnComplexFilter);
+        if(result1.Results[0].Status === 'Active') {
+            Variable.SetValue("@quaterlyNewsletterIsActive",true);
+        } else {
+            Variable.SetValue("@quaterlyNewsletterIsActive",false);
+        }
+        //Get Quaterly Newsletter
+
+        //Get MetaECHO Newsletter
+        var menFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12704"
+        };
+
+        var menFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var menJoinFilter = {
+            LeftOperand: menFilter1,
+            LogicalOperator: "AND",
+            RightOperand: menFilter2
+        }
+
+        var menResult = api.retrieve("ListSubscriber", cols, menJoinFilter);
+        if(menResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@metaECHONewsletterIsActive",true);
+        } else {
+            Variable.SetValue("@metaECHONewsletterIsActive",false);
+        }
+        //Get MetaECHO Newsletter
+
+        //Get NM Programs Newsletter
+        var nmpnFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12705"
+        };
+
+        var nmpnFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var nmpnJoinFilter = {
+            LeftOperand: nmpnFilter1,
+            LogicalOperator: "AND",
+            RightOperand: nmpnFilter2
+        }
+
+        var nmpnResult = api.retrieve("ListSubscriber", cols, nmpnJoinFilter);
+        if(nmpnResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@nmProgramsNewsletterIsActive",true);
+        } else {
+            Variable.SetValue("@nmProgramsNewsletterIsActive",false);
+        }
+        //Get NM Programs Newsletter
+
+        //Get SuperHubs Newsletter
+        var shnFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12706"
+        };
+
+        var shnFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var shnJoinFilter = {
+            LeftOperand: shnFilter1,
+            LogicalOperator: "AND",
+            RightOperand: shnFilter2
+        }
+
+        var shnResult = api.retrieve("ListSubscriber", cols, shnJoinFilter);
+        if(shnResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@superHubsNewsletterIsActive",true);
+        } else {
+            Variable.SetValue("@superHubsNewsletterIsActive",false);
+        }
+        //Get SuperHubs Newsletter
+
+        //Get CDC Advanced HIV Disease
+        var cdcAdvFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12630"
+        };
+
+        var cdcAdvFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var cdcAdvComplexFilter = {
+            LeftOperand: cdcAdvFilter1,
+            LogicalOperator: "AND",
+            RightOperand: cdcAdvFilter2
+        }
+
+        var result3 = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
+        if(result3.Results[0].Status === 'Active') {
+            Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",true);
+        } else {
+            Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
+        }
+        //Get CDC Advanced HIV Disease
+
+        //Infection Prevention and Control Global Community
+        var ipcgcFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12707"
+        };
+
+        var ipcgcFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var ipcgcJoinFilter = {
+            LeftOperand: ipcgcFilter1,
+            LogicalOperator: "AND",
+            RightOperand: ipcgcFilter2
+        }
+
+        var ipcgcResult = api.retrieve("ListSubscriber", cols, ipcgcJoinFilter);
+        if(ipcgcResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",true);
+        } else {
+            Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",false);
+        }
+        //Infection Prevention and Control Global Community
+
+        //WHO Nursing and Midwifery
+        var wnmFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12708"
+        };
+
+        var wnmFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var wnmJoinFilter = {
+            LeftOperand: wnmFilter1,
+            LogicalOperator: "AND",
+            RightOperand: wnmFilter2
+        }
+
+        var wnmResult = api.retrieve("ListSubscriber", cols, wnmJoinFilter);
+        if(wnmResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@whoNursingMidwiferyIsActive",true);
+        } else {
+            Variable.SetValue("@whoNursingMidwiferyIsActive",false);
+        }
+        //WHO Nursing and Midwifery
+
+        //WHO HQ AMR
+        var whaFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12709"
+        };
+
+        var whaFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var whaJoinFilter = {
+            LeftOperand: whaFilter1,
+            LogicalOperator: "AND",
+            RightOperand: whaFilter2
+        }
+
+        var whaResult = api.retrieve("ListSubscriber", cols, whaJoinFilter);
+        if(whaResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@whoHQAMRIsActive",true);
+        } else {
+            Variable.SetValue("@whoHQAMRIsActive",false);
+        }
+        //WHO HQ AMR
+
+        //WHO AFRO Lab vCOP (SURGE)
+        var walvsFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12710"
+        };
+
+        var walvsFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var walvsJoinFilter = {
+            LeftOperand: walvsFilter1,
+            LogicalOperator: "AND",
+            RightOperand: walvsFilter2
+        }
+
+        var walvsResult = api.retrieve("ListSubscriber", cols, walvsJoinFilter);
+        if(walvsResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@whoAfroLabVCOPIsActive",true);
+        } else {
+            Variable.SetValue("@whoAfroLabVCOPIsActive",false);
+        }
+        //WHO AFRO Lab vCOP (SURGE)
+
+        //WHO Global IPC Community of Practice Platform
+        var wgicppFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12711"
+        };
+
+        var wgicppFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var wgicppJoinFilter = {
+            LeftOperand: wgicppFilter1,
+            LogicalOperator: "AND",
+            RightOperand: wgicppFilter2
+        }
+
+        var wgicppResult = api.retrieve("ListSubscriber", cols, wgicppJoinFilter);
+        if(wgicppResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",true);
+        } else {
+            Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",false);
+        }
+        //WHO Global IPC Community of Practice Platform
+
+        //Global Palliative Care ECHO Partnership
+        var gpcepFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12712"
+        };
+
+        var gpcepFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var gpcepJoinFilter = {
+            LeftOperand: gpcepFilter1,
+            LogicalOperator: "AND",
+            RightOperand: gpcepFilter2
+        }
+
+        var gpcepResult = api.retrieve("ListSubscriber", cols, gpcepJoinFilter);
+        if(gpcepResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",true);
+        } else {
+            Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",false);
+        }
+        //Global Palliative Care ECHO Partnership
+
+        //Cancer Initiative
+        var ciFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12713"
+        };
+
+        var ciFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var ciJoinFilter = {
+            LeftOperand: ciFilter1,
+            LogicalOperator: "AND",
+            RightOperand: ciFilter2
+        }
+
+        var ciResult = api.retrieve("ListSubscriber", cols, ciJoinFilter);
+        if(ciResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@cancerInitiativeIsActive",true);
+        } else {
+            Variable.SetValue("@cancerInitiativeIsActive",false);
+        }
+        //Cancer Initiative
+
+        //COVID19 Vaccination - Building Global Capacity
+        var cvbgcFilter1 = {
+            Property: "ListID",
+            SimpleOperator: "equals",
+            Value: "12714"
+        };
+
+        var cvbgcFilter2 = {
+            Property: "SubscriberKey",
+            SimpleOperator: "equals",
+            Value: Variable.GetValue('@subscriberKey')
+        };
+        var cvbgcJoinFilter = {
+            LeftOperand: cvbgcFilter1,
+            LogicalOperator: "AND",
+            RightOperand: cvbgcFilter2
+        }
+
+        var cvbgcResult = api.retrieve("ListSubscriber", cols, cvbgcJoinFilter);
+        if(cvbgcResult.Results[0].Status === 'Active') {
+            Variable.SetValue("@covid19VaccinationIsActive",true);
+        } else {
+            Variable.SetValue("@covid19VaccinationIsActive",false);
+        }
+        //COVID19 Vaccination - Building Global Capacity
+    } catch (error) {
+        Write(error)
     }
-
-    Variable.SetValue("@EmailAddress", emailAddress);
-
-    var cols = [
-        "SubscriberKey",
-        "ListID",
-        "Status"
-    ];
-
-    //Get Quaterly Newsletter
-    var qnFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12608"
-    };
-
-    var qnFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var qnComplexFilter = {
-        LeftOperand: qnFilter1,
-        LogicalOperator: "AND",
-        RightOperand: qnFilter2
-    }
-
-    var result1 = api.retrieve("ListSubscriber", cols, qnComplexFilter);
-    if(result1.Results[0].Status === 'Active') {
-        Variable.SetValue("@quaterlyNewsletterIsActive",true);
-    } else {
-        Variable.SetValue("@quaterlyNewsletterIsActive",false);
-    }
-    //Get Quaterly Newsletter
-
-    //Get MetaECHO Newsletter
-    var menFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12704"
-    };
-
-    var menFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var menJoinFilter = {
-        LeftOperand: menFilter1,
-        LogicalOperator: "AND",
-        RightOperand: menFilter2
-    }
-
-    var menResult = api.retrieve("ListSubscriber", cols, menJoinFilter);
-    if(menResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@metaECHONewsletterIsActive",true);
-    } else {
-        Variable.SetValue("@metaECHONewsletterIsActive",false);
-    }
-    //Get MetaECHO Newsletter
-
-    //Get NM Programs Newsletter
-    var nmpnFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12705"
-    };
-
-    var nmpnFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var nmpnJoinFilter = {
-        LeftOperand: nmpnFilter1,
-        LogicalOperator: "AND",
-        RightOperand: nmpnFilter2
-    }
-
-    var nmpnResult = api.retrieve("ListSubscriber", cols, nmpnJoinFilter);
-    if(nmpnResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@nmProgramsNewsletterIsActive",true);
-    } else {
-        Variable.SetValue("@nmProgramsNewsletterIsActive",false);
-    }
-    //Get NM Programs Newsletter
-
-    //Get SuperHubs Newsletter
-    var shnFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12706"
-    };
-
-    var shnFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var shnJoinFilter = {
-        LeftOperand: shnFilter1,
-        LogicalOperator: "AND",
-        RightOperand: shnFilter2
-    }
-
-    var shnResult = api.retrieve("ListSubscriber", cols, shnJoinFilter);
-    if(shnResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@superHubsNewsletterIsActive",true);
-    } else {
-        Variable.SetValue("@superHubsNewsletterIsActive",false);
-    }
-    //Get SuperHubs Newsletter
-
-    //Get CDC Advanced HIV Disease
-    var cdcAdvFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12630"
-    };
-
-    var cdcAdvFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var cdcAdvComplexFilter = {
-        LeftOperand: cdcAdvFilter1,
-        LogicalOperator: "AND",
-        RightOperand: cdcAdvFilter2
-    }
-
-    var result3 = api.retrieve("ListSubscriber", cols, cdcAdvComplexFilter);
-    if(result3.Results[0].Status === 'Active') {
-        Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",true);
-    } else {
-        Variable.SetValue("@cdcAdvancedHIVDiseaseIsActive",false);
-    }
-    //Get CDC Advanced HIV Disease
-
-    //Infection Prevention and Control Global Community
-    var ipcgcFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12707"
-    };
-
-    var ipcgcFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var ipcgcJoinFilter = {
-        LeftOperand: ipcgcFilter1,
-        LogicalOperator: "AND",
-        RightOperand: ipcgcFilter2
-    }
-
-    var ipcgcResult = api.retrieve("ListSubscriber", cols, ipcgcJoinFilter);
-    if(ipcgcResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",true);
-    } else {
-        Variable.SetValue("@infectionPreventionControlGlobalCommunityIsActive",false);
-    }
-    //Infection Prevention and Control Global Community
-
-    //WHO Nursing and Midwifery
-    var wnmFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12708"
-    };
-
-    var wnmFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var wnmJoinFilter = {
-        LeftOperand: wnmFilter1,
-        LogicalOperator: "AND",
-        RightOperand: wnmFilter2
-    }
-
-    var wnmResult = api.retrieve("ListSubscriber", cols, wnmJoinFilter);
-    if(wnmResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@whoNursingMidwiferyIsActive",true);
-    } else {
-        Variable.SetValue("@whoNursingMidwiferyIsActive",false);
-    }
-    //WHO Nursing and Midwifery
-
-    //WHO HQ AMR
-    var whaFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12709"
-    };
-
-    var whaFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var whaJoinFilter = {
-        LeftOperand: whaFilter1,
-        LogicalOperator: "AND",
-        RightOperand: whaFilter2
-    }
-
-    var whaResult = api.retrieve("ListSubscriber", cols, whaJoinFilter);
-    if(whaResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@whoHQAMRIsActive",true);
-    } else {
-        Variable.SetValue("@whoHQAMRIsActive",false);
-    }
-    //WHO HQ AMR
-
-    //WHO AFRO Lab vCOP (SURGE)
-    var walvsFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12710"
-    };
-
-    var walvsFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var walvsJoinFilter = {
-        LeftOperand: walvsFilter1,
-        LogicalOperator: "AND",
-        RightOperand: walvsFilter2
-    }
-
-    var walvsResult = api.retrieve("ListSubscriber", cols, walvsJoinFilter);
-    if(walvsResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@whoAfroLabVCOPIsActive",true);
-    } else {
-        Variable.SetValue("@whoAfroLabVCOPIsActive",false);
-    }
-    //WHO AFRO Lab vCOP (SURGE)
-
-    //WHO Global IPC Community of Practice Platform
-    var wgicppFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12711"
-    };
-
-    var wgicppFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var wgicppJoinFilter = {
-        LeftOperand: wgicppFilter1,
-        LogicalOperator: "AND",
-        RightOperand: wgicppFilter2
-    }
-
-    var wgicppResult = api.retrieve("ListSubscriber", cols, wgicppJoinFilter);
-    if(wgicppResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",true);
-    } else {
-        Variable.SetValue("@whoGlobalIPCCommunityPracticePlatformIsActive",false);
-    }
-    //WHO Global IPC Community of Practice Platform
-
-    //Global Palliative Care ECHO Partnership
-    var gpcepFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12712"
-    };
-
-    var gpcepFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var gpcepJoinFilter = {
-        LeftOperand: gpcepFilter1,
-        LogicalOperator: "AND",
-        RightOperand: gpcepFilter2
-    }
-
-    var gpcepResult = api.retrieve("ListSubscriber", cols, gpcepJoinFilter);
-    if(gpcepResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",true);
-    } else {
-        Variable.SetValue("@globalPallativeCareECHOPartnershipIsActive",false);
-    }
-    //Global Palliative Care ECHO Partnership
-
-    //Cancer Initiative
-    var ciFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12713"
-    };
-
-    var ciFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var ciJoinFilter = {
-        LeftOperand: ciFilter1,
-        LogicalOperator: "AND",
-        RightOperand: ciFilter2
-    }
-
-    var ciResult = api.retrieve("ListSubscriber", cols, ciJoinFilter);
-    if(ciResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@cancerInitiativeIsActive",true);
-    } else {
-        Variable.SetValue("@cancerInitiativeIsActive",false);
-    }
-    //Cancer Initiative
-
-    //COVID19 Vaccination - Building Global Capacity
-    var cvbgcFilter1 = {
-        Property: "ListID",
-        SimpleOperator: "equals",
-        Value: "12714"
-    };
-
-    var cvbgcFilter2 = {
-        Property: "SubscriberKey",
-        SimpleOperator: "equals",
-        Value: Variable.GetValue('@subscriberKey')
-    };
-    var cvbgcJoinFilter = {
-        LeftOperand: cvbgcFilter1,
-        LogicalOperator: "AND",
-        RightOperand: cvbgcFilter2
-    }
-
-    var cvbgcResult = api.retrieve("ListSubscriber", cols, cvbgcJoinFilter);
-    if(cvbgcResult.Results[0].Status === 'Active') {
-        Variable.SetValue("@covid19VaccinationIsActive",true);
-    } else {
-        Variable.SetValue("@covid19VaccinationIsActive",false);
-    }
-    //COVID19 Vaccination - Building Global Capacity
 </script>
 <style type="text/css">
     .wrapper{
